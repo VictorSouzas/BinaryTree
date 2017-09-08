@@ -56,14 +56,58 @@ namespace BinaryTree
             BinaryTreeNode<T> searched = SearchIfNotFoundLastNodeReturn(value, null);
             if (!searched.Value.Equals(value))
                 throw new Exception("The is no node to remove");
-            if (searched.Left == null && searched.Right == null) ;
+            if (searched.Left == null && searched.Right == null)
+                return NoChildRemove(searched);
+            if (searched.Left == null)
+                return OneChildRemove(searched.Right);
+            if (searched.Right == null)
+                return OneChildRemove(searched.Left);
+            return TwoChildrenRemove(searched);
+
+
         }
 
+        private BinaryTreeNode<T> NoChildRemove(BinaryTreeNode<T> remove)
+        {
+            if (remove.Parent.Left.Value.Equals(remove.Value))
+                remove.Parent.Left = null;
+            if (remove.Parent.Right.Value.Equals(remove.Value))
+                remove.Parent.Right = null;
+            return remove;
+        }
+
+        private BinaryTreeNode<T> OneChildRemove(BinaryTreeNode<T> newparent)
+        {
+            BinaryTreeNode<T> returnValue = newparent.Parent;
+            newparent.Parent.Parent = newparent;
+            return returnValue;
+        }
+
+        private BinaryTreeNode<T> TwoChildrenRemove(BinaryTreeNode<T> remove)
+        {
+            BinaryTreeNode<T> smallerNode = SearchSmallerNode(remove.Right);
+            if (remove.Parent.Left.Equals(remove))
+                remove.Parent.Left = smallerNode;
+
+            if (remove.Parent.Right.Equals(remove))
+                remove.Parent.Right = smallerNode;
+
+            smallerNode.Left = remove.Left;
+            return remove;
+
+
+        }
+
+        private BinaryTreeNode<T> SearchSmallerNode(BinaryTreeNode<T> _root)
+        {
+            if (_root.Left == null)
+                return _root;
+            return SearchSmallerNode(_root.Left);
+        }
         private void CreateRoot(T value)
         {
             BinaryTreeNode<T> node = new BinaryTreeNode<T>(value, null, null, null);
             _root = node;
-            return;
         }
 
         public abstract bool GreaterThan(T value, T temp);
