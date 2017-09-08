@@ -24,11 +24,32 @@ namespace BinaryTree
             if (binaryNode.Value > (dynamic)value)
                 binaryNode.Left = node;
         }
-        
+
         // temp optional parameter pls pass null as temp.
-        public abstract BinaryTreeNode<T> SearchIfNotFoundLastNodeReturn(T value, BinaryTreeNode<T> temp);
-        
-        
+        public  BinaryTreeNode<T> SearchIfNotFoundLastNodeReturn(T value, BinaryTreeNode<T> temp)
+        {
+            if (temp == null && _root != null)
+                temp = _root;
+            if (temp.Value.Equals(value))
+                return temp;
+            if (temp.Left == null && temp.Right == null)
+                return temp;
+
+            if (value != null)
+            {
+                if (LesserThan(value, temp.Value))
+                    return SearchIfNotFoundLastNodeReturn(value, temp.Left);
+                if (GreaterThan(value, temp.Value))
+                    return SearchIfNotFoundLastNodeReturn(value, temp.Right);
+            }
+            return null;
+        }
+
+        public abstract bool GreaterThan(T value, T temp);
+        public abstract bool LesserThan(T value, T temp);
+
+
+
         public virtual void Clear()
         {
             _root = null;
