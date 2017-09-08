@@ -6,11 +6,11 @@ namespace BinaryTree
     {
         public BinaryTreeNode(T value, BinaryTreeNode<T> left, BinaryTreeNode<T> right)
         {
-            base.Value = value;
+            Value = value;
             NodeList<T> children = new NodeList<T>(2);
             children[0] = left;
             children[1] = right;
-            base.Neighbors = children;
+            Neighbors = children;
         }
 
         public BinaryTreeNode<T> Left
@@ -19,7 +19,7 @@ namespace BinaryTree
             {
                 if (base.Neighbors == null)
                     return null;
-                return (BinaryTreeNode<T>)base.Neighbors[0];
+                return base.Neighbors[0];
             }
             set
             {
@@ -44,6 +44,15 @@ namespace BinaryTree
                 base.Neighbors[1] = value;
             }
         }
-        
+        public static bool operator <(BinaryTreeNode<T> a, BinaryTreeNode<T> b)
+        {
+            return a < b;
+        }
+
+        public static bool operator >(BinaryTreeNode<T> a, BinaryTreeNode<T> b)
+        {
+            return a > b;
+        }
+
     }
 }

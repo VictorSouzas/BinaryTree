@@ -5,11 +5,7 @@ namespace BinaryTree
 {
     public class Node<T>
     {
-        public T Value
-        {
-            get => Value;
-            set => this.Value = value;
-        }
+       
 
         public Node(){}
         
@@ -23,6 +19,8 @@ namespace BinaryTree
             this.Value = value;
             this.Neighbors = neighbors;
         }
+
+        public T Value { get; set; }
 
         protected NodeList<T> Neighbors { get; set; } = null;
     }

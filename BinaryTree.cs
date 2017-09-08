@@ -1,44 +1,45 @@
 ﻿using System;
 using System.Collections;
+using System.Reflection;
 
 namespace BinaryTree
 {
-    public class BinaryTree<T>
+    public abstract class BinaryTree<T> 
     {
-        private BinaryTreeNode<int> _root;
+        private BinaryTreeNode<T> _root;
 
-        public BinaryTree()
+        protected BinaryTree()
         {
             _root = null;
         }
 
+        public void Add(T value)
+        {
+           BinaryTreeNode<T> binaryNode = SearchIfNotFoundLastNodeReturn(value, null);
+            if(binaryNode.Value.Equals(value))
+                throw new Exception("Value Already exists exception");
+            BinaryTreeNode<T> node = new BinaryTreeNode<T>(value, null, null);
+            if (binaryNode.Value < (dynamic)value)
+                binaryNode.Right = node;
+            if (binaryNode.Value > (dynamic)value)
+                binaryNode.Left = node;
+        }
         
         // temp optional parameter pls pass null as temp.
-        public BinaryTreeNode<T> Search(T value, BinaryTreeNode<T> temp)
-        {
-            if (temp == null && _root != null)
-                temp = _root as BinaryTreeNode<T>;
-            if (temp.Value.Equals(value))
-                return temp;
-            if (value > 0)
-            {
-                if (value <  temp.Value)
-                    return Search(value, temp.Left);
-                if (value >  temp.Value)
-                    return Search(value, temp.Right);
-            }
-            return null;
-        }
+        public abstract BinaryTreeNode<T> SearchIfNotFoundLastNodeReturn(T value, BinaryTreeNode<T> temp);
+        
         
         public virtual void Clear()
         {
             _root = null;
         }
 
-        public BinaryTreeNode<int> Root
+        public BinaryTreeNode<T> Root
         {
             set => _root = value;
             get => _root;
         }
+
+
     }
 }

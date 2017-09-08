@@ -3,14 +3,14 @@ using System.IO;
 
 namespace BinaryTree
 {
-    public class NodeList<T> : Collection<Node<T>>
+    public class NodeList<T> : Collection<BinaryTreeNode<T>>
     {
         public NodeList() { }
 
         public NodeList(int initialSize)
         {
             for (int i = 0; i < initialSize; i++)
-                base.Items.Add(default(Node<T>));
+                base.Items.Add(default(BinaryTreeNode<T>));
         }
 
         public Node<T> FindByValue(T value)
