@@ -15,13 +15,19 @@ namespace BinaryTree
 
         public void Add(T value)
         {
-           BinaryTreeNode<T> binaryNode = SearchIfNotFoundLastNodeReturn(value, null);
+            if (_root == null)
+            {
+                CreateRoot(value);
+                return;
+            }
+            BinaryTreeNode<T> binaryNode = SearchIfNotFoundLastNodeReturn(value, null);
             if(binaryNode.Value.Equals(value))
                 throw new Exception("Value Already exists exception");
-            BinaryTreeNode<T> node = new BinaryTreeNode<T>(value, null, null);
-            if (binaryNode.Value < (dynamic)value)
+            BinaryTreeNode<T> node = new BinaryTreeNode<T>(value, binaryNode, null, null);
+
+            if (LesserThan(binaryNode.Value, value))
                 binaryNode.Right = node;
-            if (binaryNode.Value > (dynamic)value)
+            if (GreaterThan(binaryNode.Value, value))
                 binaryNode.Left = node;
         }
 
@@ -43,6 +49,21 @@ namespace BinaryTree
                     return SearchIfNotFoundLastNodeReturn(value, temp.Right);
             }
             return null;
+        }
+
+        public BinaryTreeNode<T> Remove(T value)
+        {
+            BinaryTreeNode<T> searched = SearchIfNotFoundLastNodeReturn(value, null);
+            if (!searched.Value.Equals(value))
+                throw new Exception("The is no node to remove");
+            if (searched.Left == null && searched.Right == null) ;
+        }
+
+        private void CreateRoot(T value)
+        {
+            BinaryTreeNode<T> node = new BinaryTreeNode<T>(value, null, null, null);
+            _root = node;
+            return;
         }
 
         public abstract bool GreaterThan(T value, T temp);
