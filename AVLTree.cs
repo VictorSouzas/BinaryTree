@@ -28,7 +28,7 @@ namespace BinaryTree
                     currentNode.Height = CalcHeigth(currentNode.Left.Height, -1);
 
                 if (currentNode.Right != null)
-                    currentNode.Height = CalcHeigth(currentNode.Right.Height, -1);
+                    currentNode.Height = CalcHeigth(-1, currentNode.Right.Height);
             }
            
             
@@ -47,25 +47,23 @@ namespace BinaryTree
 
         private BinaryTreeNode<T> Rebalance(BinaryTreeNode<T> unbalancedTree)
         {
-            if (unbalancedTree.Height == 2)
+            BinaryTreeNode<T> node = unbalancedTree;
+            if (node.Height == 2)
             {
-                if (unbalancedTree.Left != null && unbalancedTree.Left.Height == 1)
+                if (node.Right != null && node.Right.Height == 1)
                 {
-                    BinaryTreeNode<T> node = Rotation(unbalancedTree.Left, unbalancedTree, unbalancedTree.Left.Left, unbalancedTree.Parent);
-                    return Rotation(node.Left, node, node.Right, node.Parent);
+                    DoubleLeftRotation(null);
                 }
-                if(unbalancedTree.Right != null && unbalancedTree.Right.Height == 1)
-                    return Rotation(unbalancedTree.Right, unbalancedTree, unbalancedTree.Right.Left, unbalancedTree.Parent);
+                else
+                {
+                    node = Rotation(unbalancedTree.Left, unbalancedTree, unbalancedTree.Left.Left, unbalancedTree.Parent);
+                }
             }
-            if (unbalancedTree.Right.Height == 1)
-            {
-                BinaryTreeNode<T> node = Rotation(unbalancedTree.Right, unbalancedTree, unbalancedTree.Right.Right, unbalancedTree.Parent);
-                return Rotation(node.Right, node, node.Left, node.Parent);
-            }
-            return Rotation(unbalancedTree.Left, unbalancedTree, unbalancedTree.Left.Left, unbalancedTree.Parent);
-
+            if(node.Height == -2)
+            return node;
 
         }
+            
 
         private BinaryTreeNode<T> Rotation(BinaryTreeNode<T> newRoot, BinaryTreeNode<T> left,
             BinaryTreeNode<T> right, BinaryTreeNode<T> parent)
