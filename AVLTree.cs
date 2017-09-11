@@ -13,29 +13,7 @@ namespace BinaryTree
 
         private void Transverse(BinaryTreeNode<T> currentNode)
         {
-            if (currentNode.Left != null && currentNode.Right != null)
-            {
-                int heigth = CalcHeigth(currentNode.Left.Height, currentNode.Right.Height);
-                currentNode.Height = (heigth == 0) ? 1 : heigth;
-            }
-            else
-            {
-                var flag = currentNode.Left == null && currentNode.Right == null;
-                if (currentNode.Height == 0 && currentNode.Parent != null && flag)
-                    Transverse(currentNode.Parent);
-
-                if (currentNode.Left != null)
-                    currentNode.Height = CalcHeigth(currentNode.Left.Height, -1);
-
-                if (currentNode.Right != null)
-                    currentNode.Height = CalcHeigth(-1, currentNode.Right.Height);
-            }
-           
-            if (currentNode.Height < -1  || currentNode.Height > 1)
-                Transverse(Rebalance(currentNode));
-            if (currentNode.Parent == null)
-                return;
-           Transverse(currentNode.Parent);
+         
         }
 
         private int CalcHeigth(int hl, int hr)
@@ -45,8 +23,21 @@ namespace BinaryTree
 
         private BinaryTreeNode<T> Rebalance(BinaryTreeNode<T> unbalancedTree)
         {
+            Rotations<T> rotation = new Rotations<T>(unbalancedTree);
+            if (unbalancedTree.Height == 2)
+            {
+                if (unbalancedTree.Right.Left != null && unbalancedTree.Right.Left.Height == 1)
+                    return rotation.LeftRightRotation();
+                return rotation.LeftRotation();
+            }
+            if (unbalancedTree.Height == -2)
+            {
+                if (unbalancedTree.Left.Right != null && unbalancedTree.Left.Right.Height == 1)
+                    return rotation.RightLeftRotation();
+                return rotation.RightRotation();
+                
+            }
             return null;
-
         }   
     }
 }

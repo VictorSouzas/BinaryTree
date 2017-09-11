@@ -2,30 +2,44 @@
 {
     public class Rotations<T>
     {
-        public BinaryTreeNode<T> Node { get; set; }
+        private BinaryTreeNode<T> Node;
         
         public Rotations(BinaryTreeNode<T> node)
         {
-            this.Node = node;
+            Node = node;
         }
 
         public BinaryTreeNode<T> LeftRotation()
         {
-            return null;
+            BinaryTreeNode<T> newNode = Node.Left;
+            newNode.Left = Node;
+            newNode.Parent = newNode.Left.Parent;
+            Node.Parent = newNode;
+            Node = newNode;
+            return Node;
         }
         
         public BinaryTreeNode<T> RightRotation()
         {
-            return null;
+            BinaryTreeNode<T> newNode = Node.Right;
+            Node.Right = Node;
+            newNode.Parent = newNode.Right.Parent;
+            Node.Parent = newNode;
+            Node = newNode;
+            return Node;
         }
 
         public BinaryTreeNode<T> LeftRightRotation()
         {
-            return null;
+            Rotations<T> newRotation = new Rotations<T>(Node.Right);
+            newRotation.RightRotation();
+            return LeftRotation();
         }
         public BinaryTreeNode<T> RightLeftRotation()
         {
-            return null;
+            Rotations<T> newRotation = new Rotations<T>(Node.Left);
+            newRotation.LeftRotation();
+            return RightRotation();
         }
     }
 }
