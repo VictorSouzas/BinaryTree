@@ -21,6 +21,7 @@ namespace BinaryTree
         }
 
         public T Value { get; set; }
+        public int Height { get; set; } = 0;
 
         protected NodeList<T> Neighbors { get; set; } = null;
     }

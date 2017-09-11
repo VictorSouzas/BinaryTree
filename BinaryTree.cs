@@ -13,12 +13,12 @@ namespace BinaryTree
             _root = null;
         }
 
-        public void Add(T value)
+        public BinaryTreeNode<T> Add(T value)
         {
             if (_root == null)
             {
                 CreateRoot(value);
-                return;
+                return _root;
             }
             BinaryTreeNode<T> binaryNode = SearchIfNotFoundLastNodeReturn(value, null);
             if(binaryNode.Value.Equals(value))
@@ -29,6 +29,7 @@ namespace BinaryTree
                 binaryNode.Right = node;
             if (GreaterThan(binaryNode.Value, value))
                 binaryNode.Left = node;
+            return node;
         }
 
         // temp optional parameter pls pass null as temp.
@@ -43,12 +44,12 @@ namespace BinaryTree
 
             if (value != null)
             {
-                if (LesserThan(value, temp.Value))
+                if (LesserThan(value, temp.Value) && temp.Left != null)
                     return SearchIfNotFoundLastNodeReturn(value, temp.Left);
-                if (GreaterThan(value, temp.Value))
+                if (GreaterThan(value, temp.Value) && temp.Right != null)
                     return SearchIfNotFoundLastNodeReturn(value, temp.Right);
             }
-            return null;
+            return temp;
         }
 
         public BinaryTreeNode<T> Remove(T value)
@@ -79,23 +80,27 @@ namespace BinaryTree
         private BinaryTreeNode<T> OneChildRemove(BinaryTreeNode<T> newparent)
         {
             BinaryTreeNode<T> returnValue = newparent.Parent;
-            newparent.Parent.Parent = newparent;
+            RepleaceNode(newparent.Parent, newparent);
             return returnValue;
         }
 
         private BinaryTreeNode<T> TwoChildrenRemove(BinaryTreeNode<T> remove)
         {
             BinaryTreeNode<T> smallerNode = SearchSmallerNode(remove.Right);
-            if (remove.Parent.Left.Equals(remove))
-                remove.Parent.Left = smallerNode;
-
-            if (remove.Parent.Right.Equals(remove))
-                remove.Parent.Right = smallerNode;
-
+            RepleaceNode(remove, smallerNode);
             smallerNode.Left = remove.Left;
             return remove;
 
 
+        }
+
+        private void RepleaceNode(BinaryTreeNode<T> remove, BinaryTreeNode<T> repleacement)
+        {
+            if (remove.Parent.Left.Equals(remove))
+                remove.Parent.Left = repleacement;
+
+            if (remove.Parent.Right.Equals(remove))
+                remove.Parent.Right = repleacement;
         }
 
         private BinaryTreeNode<T> SearchSmallerNode(BinaryTreeNode<T> _root)

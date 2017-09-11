@@ -14,9 +14,9 @@ namespace BinaryTree
             BinaryTreeInt32 binaryTree = new BinaryTreeInt32();
             binaryTree.Add(45);
             binaryTree.Add(32);
-            binaryTree.Add(55);
+            binaryTree.Add(21);
             binaryTree.Add(65);
-            binaryTree.Add(41);
+            binaryTree.Add(75);
 
             binaryTree.Remove(55);
 

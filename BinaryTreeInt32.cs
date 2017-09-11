@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BinaryTree
 {
-    public class BinaryTreeInt32 : BinaryTree<int>
+    public class BinaryTreeInt32 : AvlTree<int>
     {
         public override bool GreaterThan(int value, int temp)
         {
