@@ -31,8 +31,6 @@ namespace BinaryTree
                     currentNode.Height = CalcHeigth(-1, currentNode.Right.Height);
             }
            
-            
-            
             if (currentNode.Height < -1  || currentNode.Height > 1)
                 Transverse(Rebalance(currentNode));
             if (currentNode.Parent == null)
@@ -47,36 +45,8 @@ namespace BinaryTree
 
         private BinaryTreeNode<T> Rebalance(BinaryTreeNode<T> unbalancedTree)
         {
-            BinaryTreeNode<T> node = unbalancedTree;
-            if (node.Height == 2)
-            {
-                if (node.Right != null && node.Right.Height == 1)
-                {
-                    DoubleLeftRotation(null);
-                }
-                else
-                {
-                    node = Rotation(unbalancedTree.Left, unbalancedTree, unbalancedTree.Left.Left, unbalancedTree.Parent);
-                }
-            }
-            if(node.Height == -2)
-            return node;
+            return null;
 
-        }
-            
-
-        private BinaryTreeNode<T> Rotation(BinaryTreeNode<T> newRoot, BinaryTreeNode<T> left,
-            BinaryTreeNode<T> right, BinaryTreeNode<T> parent)
-        {
-            newRoot.Left = left;
-            newRoot.Right = right;
-            newRoot.Parent = parent;
-            left.Parent = newRoot;
-            right.Parent = newRoot;
-            return newRoot;
-
-        }
-        
-        
+        }   
     }
 }
