@@ -11,21 +11,33 @@
 
         public BinaryTreeNode<T> LeftRotation()
         {
-            BinaryTreeNode<T> newNode = Node.Left;
+            BinaryTreeNode<T> newNode = Node.Right;
             newNode.Left = Node;
             newNode.Parent = newNode.Left.Parent;
             Node.Parent = newNode;
             Node = newNode;
+
+            if (Node.Right != null)
+                Node.Right.Height = 0;
+            if (Node.Left != null)
+                Node.Left.Height = 0;
+            Node.Height = Node.Left.Height - Node.Right.Height == 0 ? 1 : Node.Left.Height - Node.Right.Height;
             return Node;
         }
         
         public BinaryTreeNode<T> RightRotation()
         {
-            BinaryTreeNode<T> newNode = Node.Right;
+            BinaryTreeNode<T> newNode = Node.Left;
             Node.Right = Node;
             newNode.Parent = newNode.Right.Parent;
             Node.Parent = newNode;
             Node = newNode;
+
+            if (Node.Right != null)
+                Node.Right.Height = 0;
+            if (Node.Left != null)
+                Node.Left.Height = 0;
+            Node.Height = Node.Left.Height - Node.Right.Height == 0 ? 1 : Node.Left.Height - Node.Right.Height;
             return Node;
         }
 
