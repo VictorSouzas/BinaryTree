@@ -1,14 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
+    <StartupObject></StartupObject>
+    <ApplicationIcon />
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="BinaryTree">
-      <HintPath>..\..\Server\Server\Depedencies\BinaryTree.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
 </Project>
