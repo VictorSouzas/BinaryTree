@@ -11,7 +11,7 @@ namespace BinaryTree
             Transverse(base.Add(value));
         }
 
-        private void Transverse(BinaryTreeNode<T> currentNode)
+        protected void Transverse(BinaryTreeNode<T> currentNode)
         {
             var flag = currentNode.Left == null && currentNode.Right == null;
             if (currentNode.Height == 0 && flag && currentNode.Parent != null)
